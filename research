@@ -1,0 +1,66 @@
+/*7-4
+查找书籍
+(10分)
+给定n本书的名称和定价，本题要求编写程序，查找并输出其中定价最高和最低的书的名称和定价。
+
+输入格式:
+输入第一行给出正整数n（<10），随后给出n本书的信息。每本书在一行中给出书名，即长度不超过30的字符串，随后一行中给出正实数价格。题目保证没有同样价格的书。
+
+输出格式:
+在一行中按照“价格, 书名”的格式先后输出价格最高和最低的书。价格保留2位小数。
+*/
+
+#include <iostream>
+#include<iomanip>
+
+using namespace std;
+
+#define MAXN 80
+
+struct books
+{
+    char name[MAXN];
+    double price;
+};
+
+int main()
+{
+    int i, n;
+    int k1, k2;
+    char ch;
+    double maxp, minp;
+    struct books b[1000];
+
+    cin >> n;
+    cin.get(ch);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin.getline(b[i].name, MAXN);
+        cin >> b[i].price;
+        cin.get(ch);
+    }
+
+    k1 = k2 = 0;
+    maxp = minp = b[0].price;
+
+    for (i = 1; i < n; i++)
+    {
+        if (maxp < b[i].price)
+        {
+            maxp = b[i].price;
+            k1 = i;
+        }
+
+        if (minp > b[i].price)
+        {
+            minp = b[i].price;
+            k2 = i;
+        }
+    }
+
+    cout << fixed << setprecision(2) << b[k1].price << ", " << b[k1].name << endl;
+    cout << fixed << setprecision(2) << b[k2].price << ", " << b[k2].name << endl;
+
+    return 0;
+}
